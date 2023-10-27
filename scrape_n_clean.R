@@ -1,18 +1,3 @@
-install.packages('lookup')
-install.packages('tidyverse')
-install.packages('rvest')
-install.packages('lubridate')
-install.packages('readxl')
-install.packages('dplyr')
-install.packages('readxl')
-install.packages('aod')
-install.packages('ggplot2')
-install.packages('tidyr')
-install.packages('stringr')
-install.packages('lookup')
-install.packages('reshape')
-install.packages('coda')
-
 library(lookup)
 library(tidyverse)
 library(rvest)
@@ -606,6 +591,8 @@ regular_season <- data.frame(NULL)
 playoff_games <- filter(gamesdf, playoff == T)
 regular_season <- filter(gamesdf, playoff == F)
 
+write_csv(regular_season, 'regular_season.csv')
+write_csv(playoff_games, 'playoff_games.csv')
 
 #####################################################
 ### Scraping Player Data and Calculating Avg VORP ###
