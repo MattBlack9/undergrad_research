@@ -18,7 +18,7 @@ library(coda)
 playoff_games <- read.csv('playoff_games.csv')
 regular_season <- read.csv('regular_season.csv')
 
-names <- c('NULL','...1','Visitor/Neutral','Visitor Points','Home/Neutral','Home Points','id','year','win','team','season_id','margin','playoff')
+names <- c('Visitor/Neutral','Visitor Points','Home/Neutral','Home Points','id','year','win','team','season_id','margin','playoff')
 
 names(regular_season) <- names
 names(playoff_games) <- names
