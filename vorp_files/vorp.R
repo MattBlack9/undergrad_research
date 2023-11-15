@@ -15,8 +15,8 @@ library(coda)
 
 
 
-playoff_games <- read.csv('playoff_games.csv')
-regular_season <- read.csv('regular_season.csv')
+playoff_games <- read.csv('/Users/matty/Documents/BYU/undergrad_research/old_data/playoff_games.csv')
+regular_season <- read.csv('/Users/matty/Documents/BYU/undergrad_research/old_data/regular_season.csv')
 
 names <- c('Visitor/Neutral','Visitor Points','Home/Neutral','Home Points','id','year','win','team','season_id','margin','playoff')
 
@@ -250,3 +250,9 @@ write_csv(playoffstats, 'playoffstats.csv')
 
 
 # Getting stuck at 15% 
+
+
+
+
+
+
