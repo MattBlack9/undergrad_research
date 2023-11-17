@@ -26,9 +26,9 @@ names(playoff_games) <- names
 
 
 
-###################
-### My Function ###
-###################
+####################
+### My Functions ###
+####################
 
 filter_teams1 <- function(first,last,part,team1,team2,team3){
   temp <- part$year >= first & part$year < last
@@ -49,6 +49,25 @@ filter_teams2 <- function(first,last,part,team1,team2,team3,team4){
   df <- filter(test,correct == T & cteams == T)
   return(df)
 }
+
+
+cleaning <- function(decade,team,list){
+  temp <- decade
+  temp$teamer <- temp$`Visitor/Neutral` == team | temp$`Home/Neutral` == team
+  temp <- filter(temp,teamer == T)
+  holder <- 1
+  for(i in unique(temp$year)){
+    curr <- temp[temp$year == i, ]
+    curr <- curr[,1:10]
+    list[[holder]] <- curr
+    holder <- holder + 1
+  }
+  return(list)
+}
+
+lal80 <- list()
+
+lal80 <- cleaning(reg80,'LAL',lal80)
 
 #80s
 #Celtics
@@ -83,6 +102,17 @@ post00 <- filter_teams2(2000,2010,playoff_games,'LAL','BOS','DET','SAS')
 
 reg10 <- filter_teams2(2010,2020,regular_season,'MIA','CLE','GSW','SAS')
 post10 <- filter_teams2(2010,2020,playoff_games,'MIA','CLE','GWS','SAS')
+
+
+
+
+
+
+
+
+
+
+
 
 
 
