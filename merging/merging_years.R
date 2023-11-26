@@ -1,0 +1,565 @@
+library(tidyverse)
+
+###########################
+### Loading in the Data ###
+###########################
+
+### Setting directory where the data is stored ###
+
+setwd('/Users/matty/Documents/BYU/undergrad_research/server')
+
+### Reading in data ###
+
+bulls.post90 <- read.csv('bulls.post90.csv')	
+bulls.post91 <- read.csv('bulls.post91.csv')	
+bulls.post92 <- read.csv('bulls.post92.csv')	
+bulls.post93 <- read.csv('bulls.post93.csv')	
+bulls.post94 <- read.csv('bulls.post94.csv')	
+bulls.post95 <- read.csv('bulls.post95.csv')	
+bulls.post96 <- read.csv('bulls.post96.csv')	
+bulls.post97 <- read.csv('bulls.post97.csv')	
+bulls.post98 <- read.csv('bulls.post98.csv')	
+bulls.reg90 <- read.csv('bulls.reg90.csv')		
+bulls.reg91 <- read.csv('bulls.reg91.csv')		
+bulls.reg92 <- read.csv('bulls.reg92.csv')		
+bulls.reg93 <- read.csv('bulls.reg93.csv')		
+bulls.reg94 <- read.csv('bulls.reg94.csv')		
+bulls.reg95 <- read.csv('bulls.reg95.csv')		
+bulls.reg96 <- read.csv('bulls.reg96.csv')		
+bulls.reg97 <- read.csv('bulls.reg97.csv')		
+bulls.reg98 <- read.csv('bulls.reg98.csv')		
+caveliers.post10 <- read.csv('caveliers.post10.csv')	
+caveliers.post15 <- read.csv('caveliers.post15.csv')	
+caveliers.post16 <- read.csv('caveliers.post16.csv')	
+caveliers.post17 <- read.csv('caveliers.post17.csv')	
+caveliers.post18 <- read.csv('caveliers.post18.csv')	
+caveliers.reg10 <- read.csv('caveliers.reg10.csv')	
+caveliers.reg15 <- read.csv('caveliers.reg15.csv')	
+caveliers.reg16 <- read.csv('caveliers.reg16.csv')	
+caveliers.reg17 <- read.csv('caveliers.reg17.csv')	
+caveliers.reg18 <- read.csv('caveliers.reg18.csv')	
+celtics.post02 <- read.csv('celtics.post02.csv')	
+celtics.post03 <- read.csv('celtics.post03.csv')	
+celtics.post04 <- read.csv('celtics.post04.csv')	
+celtics.post05 <- read.csv('celtics.post05.csv')	
+celtics.post08 <- read.csv('celtics.post08.csv')	
+celtics.post09 <- read.csv('celtics.post09.csv')	
+celtics.post85 <- read.csv('celtics.post85.csv')	
+celtics.post86 <- read.csv('celtics.post86.csv')	
+celtics.post87 <- read.csv('celtics.post87.csv')	
+celtics.post88 <- read.csv('celtics.post88.csv')	
+celtics.post89 <- read.csv('celtics.post89.csv')	
+celtics.reg02 <- read.csv('celtics.reg02.csv')	
+celtics.reg03 <- read.csv('celtics.reg03.csv')	
+celtics.reg04 <- read.csv('celtics.reg04.csv')	
+celtics.reg05 <- read.csv('celtics.reg05.csv')	
+celtics.reg08 <- read.csv('celtics.reg08.csv')
+celtics.reg09 <- read.csv('celtics.reg09.csv')
+celtics.reg85 <- read.csv('celtics.reg85.csv')
+celtics.reg86 <- read.csv('celtics.reg86.csv')
+celtics.reg87 <- read.csv('celtics.reg87.csv')
+celtics.reg88 <- read.csv('celtics.reg88.csv')
+celtics.reg89 <- read.csv('celtics.reg89.csv')
+heat.post10 <- read.csv('heat.post10.csv')
+heat.post11 <- read.csv('heat.post11.csv')
+heat.post12 <- read.csv('heat.post12.csv')
+heat.post13 <- read.csv('heat.post13.csv')
+heat.post14 <- read.csv('heat.post14.csv')
+heat.post16 <- read.csv('heat.post16.csv')
+heat.post18 <- read.csv('heat.post18.csv')
+heat.reg10 <- read.csv('heat.reg10.csv')
+heat.reg11 <- read.csv('heat.reg11.csv')
+heat.reg12 <- read.csv('heat.reg12.csv')
+heat.reg13 <- read.csv('heat.reg13.csv')
+heat.reg14 <- read.csv('heat.reg14.csv')
+heat.reg16 <- read.csv('heat.reg16.csv')
+heat.reg18 <- read.csv('heat.reg18.csv')
+jazz.post90 <- read.csv('jazz.post90.csv')
+jazz.post91 <- read.csv('jazz.post91.csv')
+jazz.post92 <- read.csv('jazz.post92.csv')
+jazz.post93 <- read.csv('jazz.post93.csv')
+jazz.post94 <- read.csv('jazz.post94.csv')
+jazz.post95 <- read.csv('jazz.post95.csv')
+jazz.post96 <- read.csv('jazz.post96.csv')
+jazz.post97 <- read.csv('jazz.post97.csv')
+jazz.post98 <- read.csv('jazz.post98.csv')
+jazz.post99 <- read.csv('jazz.post99.csv')
+jazz.reg90 <- read.csv('jazz.reg90.csv')
+jazz.reg91 <- read.csv('jazz.reg91.csv')
+jazz.reg92 <- read.csv('jazz.reg92.csv')
+jazz.reg93 <- read.csv('jazz.reg93.csv')
+jazz.reg94 <- read.csv('jazz.reg94.csv')
+jazz.reg95 <- read.csv('jazz.reg95.csv')
+jazz.reg96 <- read.csv('jazz.reg96.csv')
+jazz.reg97 <- read.csv('jazz.reg97.csv')
+jazz.reg98 <- read.csv('jazz.reg98.csv')
+jazz.reg99 <- read.csv('jazz.reg99.csv')
+lakers.post00 <- read.csv('lakers.post00.csv')
+lakers.post01 <- read.csv('lakers.post01.csv')
+lakers.post02 <- read.csv('lakers.post02.csv')
+lakers.post03 <- read.csv('lakers.post03.csv')
+lakers.post04 <- read.csv('lakers.post04.csv')
+lakers.post06 <- read.csv('lakers.post06.csv')
+lakers.post07 <- read.csv('lakers.post07.csv')
+lakers.post08 <- read.csv('lakers.post08.csv')
+lakers.post09 <- read.csv('lakers.post09.csv')
+lakers.post85 <- read.csv('lakers.post85.csv')
+lakers.post86 <- read.csv('lakers.post86.csv')
+lakers.post87 <- read.csv('lakers.post87.csv')
+lakers.post88 <- read.csv('lakers.post88.csv')
+lakers.post89 <- read.csv('lakers.post89.csv')
+lakers.reg00 <- read.csv('lakers.reg00.csv')
+lakers.reg01 <- read.csv('lakers.reg01.csv')
+lakers.reg02 <- read.csv('lakers.reg02.csv')
+lakers.reg03 <- read.csv('lakers.reg03.csv')
+lakers.reg04 <- read.csv('lakers.reg04.csv')
+lakers.reg06 <- read.csv('lakers.reg06.csv')
+lakers.reg07 <- read.csv('lakers.reg07.csv')
+lakers.reg08 <- read.csv('lakers.reg08.csv')
+lakers.reg09 <- read.csv('lakers.reg09.csv')
+lakers.reg85 <- read.csv('lakers.reg85.csv')
+lakers.reg86 <- read.csv('lakers.reg86.csv')
+lakers.reg87 <- read.csv('lakers.reg87.csv')
+lakers.reg88 <- read.csv('lakers.reg88.csv')
+lakers.reg89 <- read.csv('lakers.reg89.csv')
+pistons.post00 <- read.csv('pistons.post00.csv')
+pistons.post02 <- read.csv('pistons.post02.csv')
+pistons.post03 <- read.csv('pistons.post03.csv')
+pistons.post04 <- read.csv('pistons.post04.csv')
+pistons.post05 <- read.csv('pistons.post05.csv')
+pistons.post06 <- read.csv('pistons.post06.csv')
+pistons.post07 <- read.csv('pistons.post07.csv')
+pistons.post08 <- read.csv('pistons.post08.csv')
+pistons.post09 <- read.csv('pistons.post09.csv')
+pistons.post85 <- read.csv('pistons.post85.csv')
+pistons.post86 <- read.csv('pistons.post86.csv')
+pistons.post87 <- read.csv('pistons.post87.csv')
+pistons.post88 <- read.csv('pistons.post88.csv')
+pistons.post89 <- read.csv('pistons.post89.csv')
+pistons.reg00 <- read.csv('pistons.reg00.csv')
+pistons.reg02 <- read.csv('pistons.reg02.csv')
+pistons.reg03 <- read.csv('pistons.reg03.csv')
+pistons.reg04 <- read.csv('pistons.reg04.csv')
+pistons.reg05 <- read.csv('pistons.reg05.csv')
+pistons.reg06 <- read.csv('pistons.reg06.csv')
+pistons.reg07 <- read.csv('pistons.reg07.csv')
+pistons.reg08 <- read.csv('pistons.reg08.csv')
+pistons.reg09 <- read.csv('pistons.reg09.csv')
+pistons.reg85 <- read.csv('pistons.reg85.csv')
+pistons.reg86 <- read.csv('pistons.reg86.csv')
+pistons.reg87 <- read.csv('pistons.reg87.csv')
+pistons.reg88 <- read.csv('pistons.reg88.csv')
+pistons.reg89 <- read.csv('pistons.reg89.csv')
+rockets.post90 <- read.csv('rockets.post90.csv')
+rockets.post91 <- read.csv('rockets.post91.csv')
+rockets.post93 <- read.csv('rockets.post93.csv')
+rockets.post94 <- read.csv('rockets.post94.csv')
+rockets.post95 <- read.csv('rockets.post95.csv')
+rockets.post96 <- read.csv('rockets.post96.csv')
+rockets.post97 <- read.csv('rockets.post97.csv')
+rockets.post98 <- read.csv('rockets.post98.csv')
+rockets.post99 <- read.csv('rockets.post99.csv')
+rockets.reg90 <- read.csv('rockets.reg90.csv')
+rockets.reg91 <- read.csv('rockets.reg91.csv')
+rockets.reg93 <- read.csv('rockets.reg93.csv')
+rockets.reg94 <- read.csv('rockets.reg94.csv')
+rockets.reg95 <- read.csv('rockets.reg95.csv')
+rockets.reg96 <- read.csv('rockets.reg96.csv')
+rockets.reg97 <- read.csv('rockets.reg97.csv')
+rockets.reg98 <- read.csv('rockets.reg98.csv')
+rockets.reg99 <- read.csv('rockets.reg99.csv')
+spurs.post00 <- read.csv('spurs.post00.csv')
+spurs.post01 <- read.csv('spurs.post01.csv')
+spurs.post02 <- read.csv('spurs.post02.csv')
+spurs.post03 <- read.csv('spurs.post03.csv')
+spurs.post04 <- read.csv('spurs.post04.csv')
+spurs.post05 <- read.csv('spurs.post05.csv')
+spurs.post06 <- read.csv('spurs.post06.csv')
+spurs.post07 <- read.csv('spurs.post07.csv')
+spurs.post08 <- read.csv('spurs.post08.csv')
+spurs.post09 <- read.csv('spurs.post09.csv')
+spurs.post10 <- read.csv('spurs.post10.csv')
+spurs.post11 <- read.csv('spurs.post11.csv')
+spurs.post12 <- read.csv('spurs.post12.csv')
+spurs.post13 <- read.csv('spurs.post13.csv')
+spurs.post14 <- read.csv('spurs.post14.csv')
+spurs.post15 <- read.csv('spurs.post15.csv')
+spurs.post16 <- read.csv('spurs.post16.csv')
+spurs.post17 <- read.csv('spurs.post17.csv')
+spurs.post18 <- read.csv('spurs.post18.csv')
+spurs.post19 <- read.csv('spurs.post19.csv')
+spurs.reg00 <- read.csv('spurs.reg00.csv')
+spurs.reg01 <- read.csv('spurs.reg01.csv')
+spurs.reg02 <- read.csv('spurs.reg02.csv')
+spurs.reg03 <- read.csv('spurs.reg03.csv')
+spurs.reg04 <- read.csv('spurs.reg04.csv')
+spurs.reg05 <- read.csv('spurs.reg05.csv')
+spurs.reg06 <- read.csv('spurs.reg06.csv')
+spurs.reg07 <- read.csv('spurs.reg07.csv')
+spurs.reg08 <- read.csv('spurs.reg08.csv')
+spurs.reg09 <- read.csv('spurs.reg09.csv')
+spurs.reg10 <- read.csv('spurs.reg10.csv')
+spurs.reg11 <- read.csv('spurs.reg11.csv')
+spurs.reg12 <- read.csv('spurs.reg12.csv')
+spurs.reg13 <- read.csv('spurs.reg13.csv')
+spurs.reg14 <- read.csv('spurs.reg14.csv')
+spurs.reg15 <- read.csv('spurs.reg15.csv')
+spurs.reg16 <- read.csv('spurs.reg16.csv')
+spurs.reg17 <- read.csv('spurs.reg17.csv')
+spurs.reg18 <- read.csv('spurs.reg18.csv')
+spurs.reg19 <- read.csv('spurs.reg19.csv')
+warriors.post13 <- read.csv('warriors.post13.csv')
+warriors.post15 <- read.csv('warriors.post15.csv')
+warriors.post16 <- read.csv('warriors.post16.csv')
+warriors.post17 <- read.csv('warriors.post17.csv')
+warriors.post18 <- read.csv('warriors.post18.csv')
+warriors.reg13 <- read.csv('warriors.reg13.csv')
+warriors.reg15 <- read.csv('warriors.reg15.csv')
+warriors.reg16 <- read.csv('warriors.reg16.csv')
+warriors.reg17 <- read.csv('warriors.reg17.csv')
+warriors.reg18 <- read.csv('warriors.reg18.csv')
+
+
+### Setting directory where R file is ###
+
+setwd('/Users/matty/Documents/BYU/undergrad_research/merging')
+
+
+####################################
+### Calculating the Average VORP ###
+####################################
+
+### Calculating individual VORP function ###
+
+individual <- function(year, time, team, reg_post){
+  df <- filter(year, season_id==team)
+  new <- data.frame()
+  for(i in unique(df$player)){
+    per <- filter(df,player==i)
+    score <- mean(per$VORP)
+    adder <- data.frame(player = i, TVORP = score, year = time, time = reg_post)
+    new <- rbind(new,adder)
+  }
+  return(new)
+}
+
+
+
+### Calculating VORP for every player ###
+
+bulls.post90 <- individual(bulls.post90,1990,'CHI-1990','post')
+bulls.post91 <- individual(bulls.post91,1991,'CHI-1991','post')
+bulls.post92 <- individual(bulls.post92,1992,'CHI-1992','post')
+bulls.post93 <- individual(bulls.post93,1993,'CHI-1993','post')
+bulls.post94 <- individual(bulls.post94,1994,'CHI-1994','post')
+bulls.post95 <- individual(bulls.post95,1995,'CHI-1995','post')
+bulls.post96 <- individual(bulls.post96,1996,'CHI-1996','post')
+bulls.post97 <- individual(bulls.post97,1997,'CHI-1997','post')
+bulls.post98 <- individual(bulls.post98,1998,'CHI-1998','post')
+bulls.reg90 <- individual(bulls.reg90,1990,'CHI-1990','regular')
+bulls.reg91 <- individual(bulls.reg91,1991,'CHI-1991','regular')
+bulls.reg92 <- individual(bulls.reg92,1992,'CHI-1992','regular')
+bulls.reg93 <- individual(bulls.reg93,1993,'CHI-1993','regular')
+bulls.reg94 <- individual(bulls.reg94,1994,'CHI-1994','regular')
+bulls.reg95 <- individual(bulls.reg95,1995,'CHI-1995','regular')
+bulls.reg96 <- individual(bulls.reg96,1996,'CHI-1996','regular')
+bulls.reg97 <- individual(bulls.reg97,1997,'CHI-1997','regular')
+bulls.reg98 <- individual(bulls.reg98,1998,'CHI-1998','regular')
+caveliers.post10 <- individual(caveliers.post10,2010,'CLE-2010','post')
+caveliers.post15 <- individual(caveliers.post15,2015,'CLE-2015','post')
+caveliers.post16 <- individual(caveliers.post16,2016,'CLE-2016','post')
+caveliers.post17 <- individual(caveliers.post17,2017,'CLE-2017','post')
+caveliers.post18 <- individual(caveliers.post18,2018,'CLE-2018','post')
+caveliers.reg10 <- individual(caveliers.reg10,2010,'CLE-2010','regular')
+caveliers.reg15 <- individual(caveliers.reg15,2015,'CLE-2015','regular')
+caveliers.reg16 <- individual(caveliers.reg16,2016,'CLE-2016','regular')
+caveliers.reg17 <- individual(caveliers.reg17,2017,'CLE-2017','regular')
+caveliers.reg18 <- individual(caveliers.reg18,2018,'CLE-2018','regular')
+celtics.post02 <- individual(celtics.post02,2002,'BOS-2002','post')
+celtics.post03 <- individual(celtics.post03,2003,'BOS-2003','post')
+celtics.post04 <- individual(celtics.post04,2004,'BOS-2004','post')
+celtics.post05 <- individual(celtics.post05,2005,'BOS-2005','post')
+celtics.post08 <- individual(celtics.post08,2008,'BOS-2008','post')
+celtics.post09 <- individual(celtics.post09,2009,'BOS-2009','post')
+celtics.post85 <- individual(celtics.post85,1985,'BOS-1985','post')
+celtics.post86 <- individual(celtics.post86,1986,'BOS-1986','post')
+celtics.post87 <- individual(celtics.post87,1987,'BOS-1987','post')
+celtics.post88 <- individual(celtics.post88,1988,'BOS-1988','post')
+celtics.post89 <- individual(celtics.post89,1989,'BOS-1989','post')
+celtics.reg02 <- individual(celtics.reg02,2002,'BOS-2002','regular')
+celtics.reg03 <- individual(celtics.reg03,2003,'BOS-2003','regular')
+celtics.reg04 <- individual(celtics.reg04,2004,'BOS-2004','regular')
+celtics.reg05 <- individual(celtics.reg05,2005,'BOS-2005','regular')
+celtics.reg08 <- individual(celtics.reg08,2008,'BOS-2008','regular')
+celtics.reg09 <- individual(celtics.reg09,2009,'BOS-2009','regular')
+celtics.reg85 <- individual(celtics.reg85,1985,'BOS-1985','regular')
+celtics.reg86 <- individual(celtics.reg86,1986,'BOS-1986','regular')
+celtics.reg87 <- individual(celtics.reg87,1987,'BOS-1987','regular')
+celtics.reg88 <- individual(celtics.reg88,1988,'BOS-1988','regular')
+celtics.reg89 <- individual(celtics.reg89,1989,'BOS-1989','regular')
+heat.post10 <- individual(heat.post10,2010,'MIA-2010','post')
+heat.post11 <- individual(heat.post11,2011,'MIA-2011','post')
+heat.post12 <- individual(heat.post12,2012,'MIA-2012','post')
+heat.post13 <- individual(heat.post13,2013,'MIA-2013','post')
+heat.post14 <- individual(heat.post14,2014,'MIA-2014','post')
+heat.post16 <- individual(heat.post16,2016,'MIA-2016','post')
+heat.post18 <- individual(heat.post18,2018,'MIA-2018','post')
+heat.reg10 <- individual(heat.reg10,2010,'MIA-2010','regular')
+heat.reg11 <- individual(heat.reg11,2011,'MIA-2011','regular')
+heat.reg12 <- individual(heat.reg12,2012,'MIA-2012','regular')
+heat.reg13 <- individual(heat.reg13,2013,'MIA-2013','regular')
+heat.reg14 <- individual(heat.reg14,2014,'MIA-2014','regular')
+heat.reg16 <- individual(heat.reg16,2016,'MIA-2016','regular')
+heat.reg18 <- individual(heat.reg18,2018,'MIA-2018','regular')
+jazz.post90 <- individual(jazz.post90,1990,'UTA-1990','post')
+jazz.post91 <- individual(jazz.post91,1991,'UTA-1991','post')
+jazz.post92 <- individual(jazz.post92,1992,'UTA-1992','post')
+jazz.post93 <- individual(jazz.post93,1993,'UTA-1993','post')
+jazz.post94 <- individual(jazz.post94,1994,'UTA-1994','post')
+jazz.post95 <- individual(jazz.post95,1995,'UTA-1995','post')
+jazz.post96 <- individual(jazz.post96,1996,'UTA-1996','post')
+jazz.post97 <- individual(jazz.post97,1997,'UTA-1997','post')
+jazz.post98 <- individual(jazz.post98,1998,'UTA-1998','post')
+jazz.post99 <- individual(jazz.post99,1999,'UTA-1999','post')
+jazz.reg90 <- individual(jazz.reg90,1990,'UTA-1990','regular')
+jazz.reg91 <- individual(jazz.reg91,1991,'UTA-1991','regular')
+jazz.reg92 <- individual(jazz.reg92,1992,'UTA-1992','regular')
+jazz.reg93 <- individual(jazz.reg93,1993,'UTA-1993','regular')
+jazz.reg94 <- individual(jazz.reg94,1994,'UTA-1994','regular')
+jazz.reg95 <- individual(jazz.reg95,1995,'UTA-1995','regular')
+jazz.reg96 <- individual(jazz.reg96,1996,'UTA-1996','regular')
+jazz.reg97 <- individual(jazz.reg97,1997,'UTA-1997','regular')
+jazz.reg98 <- individual(jazz.reg98,1998,'UTA-1998','regular')
+jazz.reg99 <- individual(jazz.reg99,1999,'UTA-1999','regular')
+lakers.post00 <- individual(lakers.post00,2000,'LAL-2000','post')
+lakers.post01 <- individual(lakers.post01,2001,'LAL-2001','post')
+lakers.post02 <- individual(lakers.post02,2002,'LAL-2002','post')
+lakers.post03 <- individual(lakers.post03,2003,'LAL-2003','post')
+lakers.post04 <- individual(lakers.post04,2004,'LAL-2004','post')
+lakers.post06 <- individual(lakers.post06,2006,'LAL-2006','post')
+lakers.post07 <- individual(lakers.post07,2007,'LAL-2007','post')
+lakers.post08 <- individual(lakers.post08,2008,'LAL-2008','post')
+lakers.post09 <- individual(lakers.post09,2009,'LAL-2009','post')
+lakers.post85 <- individual(lakers.post85,1985,'LAL-1985','post')
+lakers.post86 <- individual(lakers.post86,1986,'LAL-1986','post')
+lakers.post87 <- individual(lakers.post87,1987,'LAL-1987','post')
+lakers.post88 <- individual(lakers.post88,1988,'LAL-1988','post')
+lakers.post89 <- individual(lakers.post89,1989,'LAL-1989','post')
+lakers.reg00 <- individual(lakers.reg00,2000,'LAL-2000','regular')
+lakers.reg01 <- individual(lakers.reg01,2001,'LAL-2001','regular')
+lakers.reg02 <- individual(lakers.reg02,2002,'LAL-2002','regular')
+lakers.reg03 <- individual(lakers.reg03,2003,'LAL-2003','regular')
+lakers.reg04 <- individual(lakers.reg04,2004,'LAL-2004','regular')
+lakers.reg06 <- individual(lakers.reg06,2006,'LAL-2006','regular')
+lakers.reg07 <- individual(lakers.reg07,2007,'LAL-2007','regular')
+lakers.reg08 <- individual(lakers.reg08,2008,'LAL-2008','regular')
+lakers.reg09 <- individual(lakers.reg09,2009,'LAL-2009','regular')
+lakers.reg85 <- individual(lakers.reg85,1985,'LAL-1985','regular')
+lakers.reg86 <- individual(lakers.reg86,1986,'LAL-1986','regular')
+lakers.reg87 <- individual(lakers.reg87,1987,'LAL-1987','regular')
+lakers.reg88 <- individual(lakers.reg88,1988,'LAL-1988','regular')
+lakers.reg89 <- individual(lakers.reg89,1989,'LAL-1989','regular')
+pistons.post00 <- individual(pistons.post00,2000,'DET-2000','post')
+pistons.post02 <- individual(pistons.post02,2002,'DET-2002','post')
+pistons.post03 <- individual(pistons.post03,2003,'DET-2003','post')
+pistons.post04 <- individual(pistons.post04,2004,'DET-2004','post')
+pistons.post05 <- individual(pistons.post05,2005,'DET-2005','post')
+pistons.post06 <- individual(pistons.post06,2006,'DET-2006','post')
+pistons.post07 <- individual(pistons.post07,2007,'DET-2007','post')
+pistons.post08 <- individual(pistons.post08,2008,'DET-2008','post')
+pistons.post09 <- individual(pistons.post09,2008,'DET-2009','post')
+pistons.post85 <- individual(pistons.post85,1985,'DET-1985','post')
+pistons.post86 <- individual(pistons.post86,1986,'DET-1986','post')
+pistons.post87 <- individual(pistons.post87,1987,'DET-1987','post')
+pistons.post88 <- individual(pistons.post88,1988,'DET-1988','post')
+pistons.post89 <- individual(pistons.post89,1989,'DET-1989','post')
+pistons.reg00 <- individual(pistons.reg00,2000,'DET-2000','regular')
+pistons.reg02 <- individual(pistons.reg02,2002,'DET-2002','regular')
+pistons.reg03 <- individual(pistons.reg03,2003,'DET-2003','regular')
+pistons.reg04 <- individual(pistons.reg04,2004,'DET-2004','regular')
+pistons.reg05 <- individual(pistons.reg05,2005,'DET-2005','regular')
+pistons.reg06 <- individual(pistons.reg06,2006,'DET-2006','regular')
+pistons.reg07 <- individual(pistons.reg07,2007,'DET-2007','regular')
+pistons.reg08 <- individual(pistons.reg08,2008,'DET-2008','regular')
+pistons.reg09 <- individual(pistons.reg09,2009,'DET-2009','regular')
+pistons.reg85 <- individual(pistons.reg85,1985,'DET-1985','regular')
+pistons.reg86 <- individual(pistons.reg86,1986,'DET-1986','regular')
+pistons.reg87 <- individual(pistons.reg87,1987,'DET-1987','regular')
+pistons.reg88 <- individual(pistons.reg88,1988,'DET-1988','regular')
+pistons.reg89 <- individual(pistons.reg89,1989,'DET-1989','regular')
+rockets.post90 <- individual(rockets.post90,1990,'HOU-1990','post')
+rockets.post91 <- individual(rockets.post91,1991,'HOU-1991','post')
+rockets.post93 <- individual(rockets.post93,1993,'HOU-1993','post')
+rockets.post94 <- individual(rockets.post94,1994,'HOU-1994','post')
+rockets.post95 <- individual(rockets.post95,1995,'HOU-1995','post')
+rockets.post96 <- individual(rockets.post96,1996,'HOU-1996','post')
+rockets.post97 <- individual(rockets.post97,1997,'HOU-1997','post')
+rockets.post98 <- individual(rockets.post98,1998,'HOU-1998','post')
+rockets.post99 <- individual(rockets.post99,1999,'HOU-1999','post')
+rockets.reg90 <- individual(rockets.reg90,1990,'HOU-1990','regular')
+rockets.reg91 <- individual(rockets.reg91,1991,'HOU-1991','regular')
+rockets.reg93 <- individual(rockets.reg93,1993,'HOU-1993','regular')
+rockets.reg94 <- individual(rockets.reg94,1994,'HOU-1994','regular')
+rockets.reg95 <- individual(rockets.reg95,1995,'HOU-1995','regular')
+rockets.reg96 <- individual(rockets.reg96,1996,'HOU-1996','regular')
+rockets.reg97 <- individual(rockets.reg97,1997,'HOU-1997','regular')
+rockets.reg98 <- individual(rockets.reg98,1998,'HOU-1998','regular')
+rockets.reg99 <- individual(rockets.reg99,1999,'HOU-1999','regular')
+spurs.post00 <- individual(spurs.post00,2000,'SAS-2000','post')
+spurs.post01 <- individual(spurs.post01,2001,'SAS-2001','post')
+spurs.post02 <- individual(spurs.post02,2002,'SAS-2002','post')
+spurs.post03 <- individual(spurs.post03,2003,'SAS-2003','post')
+spurs.post04 <- individual(spurs.post04,2004,'SAS-2004','post')
+spurs.post05 <- individual(spurs.post05,2005,'SAS-2005','post')
+spurs.post06 <- individual(spurs.post06,2006,'SAS-2006','post')
+spurs.post07 <- individual(spurs.post07,2007,'SAS-2007','post')
+spurs.post08 <- individual(spurs.post08,2008,'SAS-2008','post')
+spurs.post09 <- individual(spurs.post09,2009,'SAS-2009','post')
+spurs.post10 <- individual(spurs.post10,2010,'SAS-2010','post')
+spurs.post11 <- individual(spurs.post11,2011,'SAS-2011','post')
+spurs.post12 <- individual(spurs.post12,2012,'SAS-2012','post')
+spurs.post13 <- individual(spurs.post13,2013,'SAS-2013','post')
+spurs.post14 <- individual(spurs.post14,2014,'SAS-2014','post')
+spurs.post15 <- individual(spurs.post15,2015,'SAS-2015','post')
+spurs.post16 <- individual(spurs.post16,2016,'SAS-2016','post')
+spurs.post17 <- individual(spurs.post17,2017,'SAS-2017','post')
+spurs.post18 <- individual(spurs.post18,2018,'SAS-2018','post')
+spurs.post19 <- individual(spurs.post19,2019,'SAS-2019','post')
+spurs.reg00 <- individual(spurs.reg00,2000,'SAS-2000','regular')
+spurs.reg01 <- individual(spurs.reg01,2001,'SAS-2001','regular')
+spurs.reg02 <- individual(spurs.reg02,2002,'SAS-2002','regular')
+spurs.reg03 <- individual(spurs.reg03,2003,'SAS-2003','regular')
+spurs.reg04 <- individual(spurs.reg04,2004,'SAS-2004','regular')
+spurs.reg05 <- individual(spurs.reg05,2005,'SAS-2005','regular')
+spurs.reg06 <- individual(spurs.reg06,2006,'SAS-2006','regular')
+spurs.reg07 <- individual(spurs.reg07,2007,'SAS-2007','regular')
+spurs.reg08 <- individual(spurs.reg08,2008,'SAS-2008','regular')
+spurs.reg09 <- individual(spurs.reg09,2009,'SAS-2009','regular')
+spurs.reg10 <- individual(spurs.reg10,2010,'SAS-2010','regular')
+spurs.reg11 <- individual(spurs.reg11,2011,'SAS-2011','regular')
+spurs.reg12 <- individual(spurs.reg12,2012,'SAS-2012','regular')
+spurs.reg13 <- individual(spurs.reg13,2013,'SAS-2013','regular')
+spurs.reg14 <- individual(spurs.reg14,2014,'SAS-2014','regular')
+spurs.reg15 <- individual(spurs.reg15,2015,'SAS-2015','regular')
+spurs.reg16 <- individual(spurs.reg16,2016,'SAS-2016','regular')
+spurs.reg17 <- individual(spurs.reg17,2017,'SAS-2017','regular')
+spurs.reg18 <- individual(spurs.reg18,2018,'SAS-2018','regular')
+spurs.reg19 <- individual(spurs.reg19,2019,'SAS-2019','regular')
+warriors.post13 <- individual(warriors.post13,2013,'GSW-2013','post')
+warriors.post15 <- individual(warriors.post15,2015,'GSW-2015','post')
+warriors.post16 <- individual(warriors.post16,2016,'GSW-2016','post')
+warriors.post17 <- individual(warriors.post17,2017,'GSW-2017','post')
+warriors.post18 <- individual(warriors.post18,2018,'GSW-2018','post')
+warriors.reg13 <- individual(warriors.reg13,2013,'GSW-2013','regular')
+warriors.reg15 <- individual(warriors.reg15,2015,'GSW-2015','regular')
+warriors.reg16 <- individual(warriors.reg16,2016,'GSW-2016','regular')
+warriors.reg17 <- individual(warriors.reg17,2017,'GSW-2017','regular')
+warriors.reg18 <- individual(warriors.reg18,2018,'GSW-2018','regular')
+
+
+
+####################################
+### Merging Years for Every Team ###
+####################################
+
+### Function to merge years ###
+
+merger <- function(df1=NULL,df2=NULL,df3=NULL,df4=NULL,df5=NULL,df6=NULL,
+                   df7=NULL,df8=NULL,df9=NULL,df10=NULL,df11=NULL,df12=NULL,
+                   df13=NULL,df14=NULL,df15=NULL,df16=NULL,df17=NULL,df18=NULL,
+                   df19=NULL,df20=NULL,df21=NULL,df22=NULL,df23=NULL,df24=NULL,
+                   df25=NULL,df26=NULL,df27=NULL,df28=NULL,df29=NULL,df30=NULL,
+                   df31=NULL,df32=NULL,df33=NULL,df34=NULL,df35=NULL,df36=NULL,
+                   df37=NULL,df38=NULL,df39=NULL,df40=NULL){
+  team <- data.frame()
+  team <- rbind(team,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,
+                df14,df15,df16,df17,df18,df19,df20,df21,df22,df23,df24,df25,df26,
+                df27,df28,df29,df30,df31,df32,df33,df34,df35,df36,df37,df38,df39,df40)
+  
+  return(team)
+}
+
+
+### Merging all the years ###
+
+bulls <- merger(bulls.reg90,bulls.reg91,bulls.reg92,bulls.reg93,bulls.reg94,
+                bulls.reg95,bulls.reg96,bulls.reg97,bulls.reg98,bulls.post90,
+                bulls.post91,bulls.post92,bulls.post93,bulls.post94,bulls.post95,
+                bulls.post96,bulls.post97,bulls.post98)
+
+caveliers <- merger(caveliers.reg10,caveliers.reg15,caveliers.reg16,caveliers.reg17,
+                    caveliers.reg18,caveliers.post10,caveliers.post15,
+                    caveliers.post16,caveliers.post17,caveliers.post18)
+
+celtics <- merger(celtics.reg85,celtics.reg86,celtics.reg87,celtics.reg88,celtics.reg89,
+                  celtics.reg02,celtics.reg03,celtics.reg04,celtics.reg05,celtics.reg08,
+                  celtics.reg09,celtics.post85,celtics.post86,celtics.post87,celtics.post88,
+                  celtics.post89,celtics.post02,celtics.post03,celtics.post04,celtics.post05,
+                  celtics.post08,celtics.post09)
+
+heat <- merger(heat.reg10,heat.reg11,heat.reg12,heat.reg13,heat.reg14,heat.reg16,
+               heat.reg18,heat.post10,heat.post11,heat.post12,heat.post13,heat.post14,
+               heat.post16,heat.post18)
+
+jazz <- merger(jazz.reg90,jazz.reg91,jazz.reg92,jazz.reg93,jazz.reg94,jazz.reg95,
+               jazz.reg96,jazz.reg97,jazz.reg98,jazz.reg99,jazz.post90,jazz.post91,
+               jazz.post92,jazz.post93,jazz.post94,jazz.post95,jazz.post96,jazz.post97,
+               jazz.post98,jazz.post99)
+
+lakers <- merger(lakers.reg85,lakers.reg86,lakers.reg87,lakers.reg88,lakers.reg89,
+                 lakers.reg00,lakers.reg01,lakers.reg02,lakers.reg03,lakers.reg04,
+                 lakers.reg06,lakers.reg07,lakers.reg08,lakers.reg09,lakers.post85,
+                 lakers.post86,lakers.post87,lakers.post88,lakers.post89,lakers.post00,
+                 lakers.post01,lakers.post02,lakers.post03,lakers.post04,lakers.post06,
+                 lakers.post07,lakers.post08,lakers.post09)
+
+pistons <- merger(pistons.reg85,pistons.reg86,pistons.reg87,pistons.reg88,pistons.reg89,
+                  pistons.reg00,pistons.reg02,pistons.reg03,pistons.reg04,pistons.reg05,
+                  pistons.reg06,pistons.reg07,pistons.reg08,pistons.reg09,pistons.post85,
+                  pistons.post86,pistons.post87,pistons.post88,pistons.post89,
+                  pistons.post00,pistons.post02,pistons.post03,pistons.post04,pistons.post05,
+                  pistons.post06,pistons.post07,pistons.post08,pistons.post09)
+
+rockets <- merger(rockets.reg90,rockets.reg91,rockets.reg93,rockets.reg94,rockets.reg95,
+                  rockets.reg96,rockets.reg97,rockets.reg98,rockets.reg99,rockets.post90,
+                  rockets.post91,rockets.post93,rockets.post94,rockets.post95,
+                  rockets.post96,rockets.post97,rockets.post98,rockets.post99)
+
+spurs <- merger(spurs.reg00,spurs.reg01,spurs.reg02,spurs.reg03,spurs.reg04,spurs.reg05,
+                spurs.reg06,spurs.reg07,spurs.reg08,spurs.reg09,spurs.reg10,spurs.reg11,
+                spurs.reg12,spurs.reg13,spurs.reg14,spurs.reg15,spurs.reg16,spurs.reg17,
+                spurs.reg18,spurs.reg19,spurs.post00,spurs.post01,spurs.post02,spurs.post03,
+                spurs.post04,spurs.post05,spurs.post06,spurs.post07,spurs.post08,spurs.post09,
+                spurs.post10,spurs.post11,spurs.post12,spurs.post13,spurs.post14,
+                spurs.post15,spurs.post16,spurs.post17,spurs.post18,spurs.post19)
+
+warriors <- merger(warriors.reg13,warriors.reg15,warriors.reg16,warriors.reg17,warriors.reg18,
+                   warriors.post13,warriors.post15,warriors.post16,warriors.post17,
+                   warriors.post18)
+
+
+
+### Saving all the team data ###
+
+write.csv(bulls,'bulls.csv')
+write.csv(caveliers,'caveliers.csv')
+write.csv(celtics,'celtics.csv')
+write.csv(heat,'heat.csv')
+write.csv(jazz,'jazz.csv')
+write.csv(lakers,'lakers.csv')
+write.csv(pistons,'pistons.csv')
+write.csv(rockets,'rockets.csv')
+write.csv(spurs,'spurs.csv')
+write.csv(warriors,'warriors.csv')
+
+
+
+
+
+
+
+
+
+
+
+
