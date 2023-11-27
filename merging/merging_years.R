@@ -537,7 +537,39 @@ warriors <- merger(warriors.reg13,warriors.reg15,warriors.reg16,warriors.reg17,w
                    warriors.post13,warriors.post15,warriors.post16,warriors.post17,
                    warriors.post18)
 
+### Keeping only the players that played in playoffs ###
 
+keep <- function(data){
+  temp <- data.frame()
+  reg <- filter(data,time=='regular')
+  post <- filter(data,time=='post')
+  for(i in 1:nrow(reg)){
+    for(j in 1:nrow(post)){
+      if(sum(reg[i,c(1,3)] == post[j,c(1,3)]) == 2){
+        temp <- rbind(temp,reg[i,])
+      }
+    }
+  }
+  for(i in 1:nrow(post)){
+    for(j in 1:nrow(reg)){
+      if(sum(post[i,c(1,3)] == reg[j,c(1,3)]) == 2){
+        temp <- rbind(temp,post[i,])
+      }
+    }
+  }
+  return(data.frame(temp, row.names = NULL))
+}
+
+bulls <- keep(bulls)
+caveliers <- keep(caveliers)
+celtics <- keep(celtics)
+heat <- keep(heat)
+jazz <- keep(jazz)
+lakers <- keep(lakers)
+pistons <- keep(pistons)
+rockets <- keep(rockets)
+spurs <- keep(spurs)
+warriors <- keep(warriors)
 
 ### Saving all the team data ###
 
