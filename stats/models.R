@@ -33,32 +33,46 @@ setwd('/Users/matty/Documents/BYU/undergrad_research/stats')
 
 ### This function plots a scatter-plot and line ###
 
-scatt <- function(data,years=NULL){
+scatt <- function(data,years=NULL,show=NULL){
   if(is.null(years) == TRUE){
-    temp1 <- filter(data, time=='regular')
-    temp2 <- filter(data,time=='post')
-    plot(temp1$TVORP,temp2$TVORP)
-    abline(0,1)
+    ggplot(data)+
+      geom_point(aes(x=RVORP,y=PVORP), color = '#e8e301') +
+      geom_abline(intercept = 0,slope=1, color='red')
   }
   else{
-    temp1 <- filter(data, time=='regular', year == years)
-    temp2 <- filter(data,time=='post', year == years)
-    plot(temp1$TVORP,temp2$TVORP)
-    abline(0,1)
+    temp <- filter(data, year == years)
+    ggplot(temp)+
+      geom_point(aes(x=RVORP,y=PVORP), color = '#e8e301') +
+      geom_abline(intercept = 0,slope=1, color='red')
   }
 }
+
 
 ### This function will plot the player over years ###
 
 player <- function(play, team){
   temp <- filter(team, player == play)
-  ggplot(temp, aes(x = year, y = TVORP, color = time)) +
-    geom_point() +
-    geom_line(aes(group = time)) +
-    labs(title = "Player performance in the regular season vs post season")
+  ggplot(temp) +
+    geom_point(aes(x = year, y= RVORP),color = '#3d34e1') +
+    geom_point(aes(x = year, y= PVORP), color = '#e13434') +
+    geom_line(aes(x = year,y=RVORP),color='#3d34e1') +
+    geom_line(aes(x = year,y=PVORP),color='#e13434')
 }
 
 
+
+
+# Yellow #e1dc34
+# I need to set the axis for the player graph, set the points to yellow if they
+# won the championship that year, and show the players on the scatter plot
+# if wanted.
+# Additionally, I need to make sure that the axis, title, and legends all make sense.
+# Furthermore, I need to create a new function that takes in numerous players
+# and will graph the difference of their playoff vorp - regular season vorp.
+# If I have time, I will also make sense of all of the weird strings used for players.
+# Lastly, I will create plots of all of the important players from every team in
+# each decade.
+# Max vorp will be 15, min -15
 
 ############################
 ### Creating My Analyses ###
@@ -82,23 +96,12 @@ player('johnsma02',lakers)
 player('bryanko01',lakers)
 player('onealsh01',lakers)
 
+player('jamesle01',heat)
+player('wadedw01',heat)
+
+player('birdla01',celtics)
 
 
-
-
-
-
-
-
-
-
-
-summary(lm(data$post~data$reg))
-
-summary(lm(data$reg~data$post))
-
-
-mean(data$reg<data$post,na.rm = T)
 
 
 

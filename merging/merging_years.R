@@ -571,6 +571,33 @@ rockets <- keep(rockets)
 spurs <- keep(spurs)
 warriors <- keep(warriors)
 
+### Tidying the data ###
+
+tidy <- function(data){
+  output <- data.frame()
+  for(i in unique(data$player)){
+    for(j in unique(data$year)){
+      corr.year <- filter(data,player==i,year==j)
+      reg <- filter(corr.year,time=='regular')
+      post <- filter(corr.year,time=='post')
+      temp <- data.frame(player=reg$player,year=reg$year,RVORP= reg$TVORP, PVORP= post$TVORP)
+      output <- rbind(output,temp)
+    }
+  }
+  return(output)
+}
+
+bulls <- tidy(bulls)
+caveliers <- tidy(caveliers)
+celtics <- tidy(celtics)
+heat <- tidy(heat)
+jazz <- tidy(jazz)
+lakers <- tidy(lakers)
+pistons <- tidy(pistons)
+rockets <- tidy(rockets)
+spurs <- tidy(spurs)
+warriors <- tidy(warriors)
+
 ### Saving all the team data ###
 
 write.csv(bulls,'bulls.csv')
