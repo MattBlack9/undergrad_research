@@ -1,4 +1,5 @@
 library(tidyverse)
+library(rvest)
 
 ###########################
 ### Loading in the Data ###
@@ -597,6 +598,55 @@ pistons <- tidy(pistons)
 rockets <- tidy(rockets)
 spurs <- tidy(spurs)
 warriors <- tidy(warriors)
+
+### Setting if the team won ###
+vec <- c(1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,
+         2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,
+         2017,2018,2019)
+
+champs <- c('BOS','LAL','BOS','LAL','LAL','DET','DET','CHI','CHI','CHI','HOU','HOU',
+            'CHI','CHI','CHI','SAS','LAL','LAL','LAL','SAS','DET','SAS','MIA',
+            'SAS','BOS','LAL','LAL','DAL','MIA','MIA','SAS','GSW','CLE','GSW',
+            'GSW','TOR')
+
+my_df <- data.frame(year = vec, winners = champs)
+
+win <- function(df,time,team){
+  temp <- filter(df, year == time)
+  winner <- filter(my_df, year == time)
+  if(team == winner$winners){
+    temp$win = TRUE
+  }
+  else{
+    temp$win = FALSE
+  }
+  return(temp)
+}
+
+final <- function(df,team){
+  holder <- data.frame()
+  for(i in unique(df$year)){
+    temp <- win(df,i,team)
+    holder <- rbind(holder,temp)
+  }
+  return(holder)
+}
+
+### Saving new csv's ###
+bulls <- final(bulls,'CHI')
+caveliers <- final(caveliers,'CLE')
+celtics <- final(celtics,'BOS')
+heat <- final(heat,'MIA')
+jazz <- final(jazz,'SLC')
+lakers <- final(lakers,'LAL')
+pistons <- final(pistons,'DET')
+rockets <- final(rockets,'HOU')
+spurs <- final(spurs,'SAS')
+warriors <- final(warriors,'GSW')
+
+
+
+
 
 ### Saving all the team data ###
 
