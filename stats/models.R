@@ -21,6 +21,8 @@ heat <- read.csv('heat.csv')
 lakers <- read.csv('lakers.csv')
 pistons <- read.csv('pistons.csv')
 spurs <- read.csv('spurs.csv')
+playoffers <- read.csv('playoffers.csv')
+regulars <- read.csv('regulars.csv')
 
 ### Setting directory of the file ###
 
@@ -37,8 +39,8 @@ scatt <- function(data,years=NULL){
   if(is.null(years) == TRUE){
     ggplot(data)+
       geom_point(aes(x=RVORP,y=PVORP,color=win)) +
-      scale_color_manual(name='Champions',values = c('black','#F0E442'),labels=c('No','Yes')) +
-      geom_abline(intercept = 0,slope=1, color='red')+ 
+      scale_color_manual(name='Champions',values = c('black','firebrick3'),labels=c('No','Yes')) +
+      geom_abline(intercept = 0,slope=1, color='blue')+ 
       labs(title='Team Performance',x = 'Regular Season VORP',y='Post Season VORP',subtitle = 'Performance with y=x line')+
       xlim(-5,15)+
       ylim(-5,15)
@@ -46,7 +48,7 @@ scatt <- function(data,years=NULL){
   else{
     temp <- filter(data, year == years)
     if(sum(temp$win) > 0){
-      colors <- '#F0E442'
+      colors <- 'firebrick3'
       champ <- 'Yes'
     }
     else{
@@ -56,7 +58,7 @@ scatt <- function(data,years=NULL){
     ggplot(temp)+
       geom_point(aes(x=RVORP,y=PVORP,color=win)) +
       scale_color_manual(name='Champions',values =colors,labels=champ) +
-      geom_abline(intercept = 0,slope=1, color='red') + 
+      geom_abline(intercept = 0,slope=1, color='blue') + 
       labs(title='Team Performance',x = 'Regular Season VORP',y='Post Season VORP',subtitle = 'Performance with y=x line')+
       xlim(-5,15)+
       ylim(-5,15)
@@ -81,19 +83,12 @@ player <- function(play, team){
 }
 
 
-### This will compare players through multiple years ###
+### This will compare player's regular seasons through multiple years ###
 
 reg <- function(player1,player2,team1,team2,player3=NULL,team3=NULL,player4=NULL,team4=NULL){
   if(is.null(player3) == TRUE){
     temp1 <- filter(team1,player==player1)
     temp2 <- filter(team2,player==player2)
-    final1 <- temp1$PVORP - temp1$RVORP
-    final2 <- temp2$PVORP - temp2$RVORP
-    temp1 <- cbind(temp1,final1)
-    temp2 <- cbind(temp2,final2)
-    columns <- c('NA','player','year','RVORP','PVORP','win','real')
-    names(temp1) <- columns
-    names(temp2) <- columns
     temp1$xax <- seq_along(temp1[, 1])
     temp2$xax <- seq_along(temp2[, 1])
     
@@ -113,19 +108,9 @@ reg <- function(player1,player2,team1,team2,player3=NULL,team3=NULL,player4=NULL
     temp1 <- filter(team1,player==player1)
     temp2 <- filter(team2,player==player2)
     temp3 <- filter(team3,player==player3)
-    final1 <- temp1$PVORP - temp1$RVORP
-    final2 <- temp2$PVORP - temp2$RVORP
-    final3 <- temp3$PVORP - temp3$RVORP
-    temp1 <- cbind(temp1,final1)
-    temp2 <- cbind(temp2,final2)
-    temp3 <- cbind(temp3,final3)
-    columns <- c('NA','player','year','RVORP','PVORP','win','real')
-    names(temp1) <- columns
-    names(temp2) <- columns
-    names(temp3) <- columns
     temp1$xax <- seq_along(temp1[, 1])
     temp2$xax <- seq_along(temp2[, 1])
-    temp3$xax <- seq_along(temp3[,1])
+    temp3$xax <- seq_along(temp3[, 1])
     
     df <- data.frame()
     df <- rbind(df,temp1,temp2,temp3)
@@ -134,10 +119,10 @@ reg <- function(player1,player2,team1,team2,player3=NULL,team3=NULL,player4=NULL
       geom_point(aes(x = xax, y= RVORP, color = player2),data = filter(df,player==player2)) +
       geom_line(aes(x = xax, y= RVORP,color = player1), data = filter(df,player==player1)) +
       geom_line(aes(x = xax, y= RVORP, color = player2),data = filter(df,player==player2)) +
-      geom_point(aes(x = xax, y= RVORP,color = player3), data = filter(df,player==player3)) +
-      geom_line(aes(x = xax, y= RVORP, color = player3),data = filter(df,player==player3)) +
+      geom_point(aes(x = xax, y=RVORP, color = player3), data = filter(df, player==player3)) +
+      geom_line(aes(x = xax, y = RVORP, color = player3), data = filter(df, player==player3)) + 
       labs(x='Years made the Playoffs',y='Regular Season VORP')+
-      scale_color_manual(name='Players',values = c('#0072B2','#D55E00','#CC79A7'),labels=c(player1,player2,player3))+
+      scale_color_manual(name='Players',values = c('#0072B2','#D55E00','#CC79A7'),labels=c(player1,player2, player3))+
       scale_x_continuous(breaks = seq(1, 10, by = 1))+
       ylim(-5,15)
   }
@@ -146,19 +131,6 @@ reg <- function(player1,player2,team1,team2,player3=NULL,team3=NULL,player4=NULL
     temp2 <- filter(team2,player==player2)
     temp3 <- filter(team3,player==player3)
     temp4 <- filter(team4,player==player4)
-    final1 <- temp1$PVORP - temp1$RVORP
-    final2 <- temp2$PVORP - temp2$RVORP
-    final3 <- temp3$PVORP - temp3$RVORP
-    final4 <- temp4$PVORP - temp4$RVORP
-    temp1 <- cbind(temp1,final1)
-    temp2 <- cbind(temp2,final2)
-    temp3 <- cbind(temp3,final3)
-    temp4 <- cbind(temp4,final4)
-    columns <- c('NA','player','year','RVORP','PVORP','win','real')
-    names(temp1) <- columns
-    names(temp2) <- columns
-    names(temp3) <- columns
-    names(temp4) <- columns
     temp1$xax <- seq_along(temp1[, 1])
     temp2$xax <- seq_along(temp2[, 1])
     temp3$xax <- seq_along(temp3[,1])
@@ -182,14 +154,157 @@ reg <- function(player1,player2,team1,team2,player3=NULL,team3=NULL,player4=NULL
   }
 }
 
-reg('curryst01','malonka01',warriors,jazz)
-reg('curryst01','malonka01',warriors,jazz,'thompkl01',warriors)
-reg('curryst01','malonka01',warriors,jazz,'thompkl01',warriors,'bryanko01',lakers)
+
+### This will compare player's post season through the years ###
+
+post <- function(player1,player2,team1,team2,player3=NULL,team3=NULL,player4=NULL,team4=NULL){
+  if(is.null(player3) == TRUE){
+    temp1 <- filter(team1,player==player1)
+    temp2 <- filter(team2,player==player2)
+    temp1$xax <- seq_along(temp1[, 1])
+    temp2$xax <- seq_along(temp2[, 1])
+    
+    df <- data.frame()
+    df <- rbind(df,temp1,temp2)
+    ggplot(df)+
+      geom_point(aes(x = xax, y= PVORP,color = player1), data = filter(df,player==player1)) +
+      geom_point(aes(x = xax, y= PVORP, color = player2),data = filter(df,player==player2)) +
+      geom_line(aes(x = xax, y= PVORP,color = player1), data = filter(df,player==player1)) +
+      geom_line(aes(x = xax, y= PVORP, color = player2),data = filter(df,player==player2)) +
+      labs(x='Years made the Playoffs',y='Regular Season VORP')+
+      scale_color_manual(name='Players',values = c('#0072B2','#D55E00'),labels=c(player1,player2))+
+      scale_x_continuous(breaks = seq(1, 10, by = 1))+
+      ylim(-5,15)
+  }
+  else if(is.null(player3) == FALSE & is.null(player4) == TRUE){
+    temp1 <- filter(team1,player==player1)
+    temp2 <- filter(team2,player==player2)
+    temp3 <- filter(team3,player==player3)
+    temp1$xax <- seq_along(temp1[, 1])
+    temp2$xax <- seq_along(temp2[, 1])
+    temp3$xax <- seq_along(temp3[,1])
+    
+    df <- data.frame()
+    df <- rbind(df,temp1,temp2,temp3)
+    ggplot(df)+
+      geom_point(aes(x = xax, y= PVORP,color = player1), data = filter(df,player==player1)) +
+      geom_point(aes(x = xax, y= PVORP, color = player2),data = filter(df,player==player2)) +
+      geom_line(aes(x = xax, y= PVORP,color = player1), data = filter(df,player==player1)) +
+      geom_line(aes(x = xax, y= PVORP, color = player2),data = filter(df,player==player2)) +
+      geom_point(aes(x = xax, y= PVORP,color = player3), data = filter(df,player==player3)) +
+      geom_line(aes(x = xax, y= PVORP, color = player3),data = filter(df,player==player3)) +
+      labs(x='Years made the Playoffs',y='Regular Season VORP')+
+      scale_color_manual(name='Players',values = c('#0072B2','#D55E00','#CC79A7'),labels=c(player1,player2,player3))+
+      scale_x_continuous(breaks = seq(1, 10, by = 1))+
+      ylim(-5,15)
+  }
+  else{
+    temp1 <- filter(team1,player==player1)
+    temp2 <- filter(team2,player==player2)
+    temp3 <- filter(team3,player==player3)
+    temp4 <- filter(team4,player==player4)
+    temp1$xax <- seq_along(temp1[, 1])
+    temp2$xax <- seq_along(temp2[, 1])
+    temp3$xax <- seq_along(temp3[,1])
+    temp4$xax <- seq_along(temp4[,1])
+    
+    df <- data.frame()
+    df <- rbind(df,temp1,temp2,temp3,temp4)
+    ggplot(df)+
+      geom_point(aes(x = xax, y= PVORP,color = player1), data = filter(df,player==player1)) +
+      geom_point(aes(x = xax, y= PVORP, color = player2),data = filter(df,player==player2)) +
+      geom_line(aes(x = xax, y= PVORP,color = player1), data = filter(df,player==player1)) +
+      geom_line(aes(x = xax, y= PVORP, color = player2),data = filter(df,player==player2)) +
+      geom_point(aes(x = xax, y= PVORP,color = player3), data = filter(df,player==player3)) +
+      geom_line(aes(x = xax, y= PVORP, color = player3),data = filter(df,player==player3)) +
+      geom_point(aes(x = xax, y= PVORP,color = player4), data = filter(df,player==player4)) +
+      geom_line(aes(x = xax, y= PVORP, color = player4),data = filter(df,player==player4)) +
+      labs(x='Years made the Playoffs',y='Regular Season VORP')+
+      scale_color_manual(name='Players',values = c('#0072B2','#D55E00','#CC79A7','#009E73'),labels=c(player4,player1,player2,player3))+
+      scale_x_continuous(breaks = seq(1, 10, by = 1))+
+      ylim(-5,15)
+  }
+}
+
+
+
+### This will compare player's Post - Regular ###
+
+diff <- function(player1,player2,team1,team2,player3=NULL,team3=NULL,player4=NULL,team4=NULL){
+  if(is.null(player3) == TRUE){
+    temp1 <- filter(team1,player==player1)
+    temp2 <- filter(team2,player==player2)
+    temp1$xax <- seq_along(temp1[, 1])
+    temp2$xax <- seq_along(temp2[, 1])
+    
+    df <- data.frame()
+    df <- rbind(df,temp1,temp2)
+    ggplot(df)+
+      geom_point(aes(x = xax, y= DVORP,color = player1), data = filter(df,player==player1)) +
+      geom_point(aes(x = xax, y= DVORP, color = player2),data = filter(df,player==player2)) +
+      geom_line(aes(x = xax, y= DVORP,color = player1), data = filter(df,player==player1)) +
+      geom_line(aes(x = xax, y= DVORP, color = player2),data = filter(df,player==player2)) +
+      labs(x='Years made the Playoffs',y='Post VORP - Regular VORP')+
+      scale_color_manual(name='Players',values = c('#0072B2','#D55E00'),labels=c(player1,player2))+
+      scale_x_continuous(breaks = seq(1, 10, by = 1))+
+      ylim(-10,10)
+  }
+  else if(is.null(player3) == FALSE & is.null(player4) == TRUE){
+    temp1 <- filter(team1,player==player1)
+    temp2 <- filter(team2,player==player2)
+    temp3 <- filter(team3,player==player3)
+    temp1$xax <- seq_along(temp1[, 1])
+    temp2$xax <- seq_along(temp2[, 1])
+    temp3$xax <- seq_along(temp3[,1])
+    
+    df <- data.frame()
+    df <- rbind(df,temp1,temp2,temp3)
+    ggplot(df)+
+      geom_point(aes(x = xax, y= DVORP,color = player1), data = filter(df,player==player1)) +
+      geom_point(aes(x = xax, y= DVORP, color = player2),data = filter(df,player==player2)) +
+      geom_line(aes(x = xax, y= DVORP,color = player1), data = filter(df,player==player1)) +
+      geom_line(aes(x = xax, y= DVORP, color = player2),data = filter(df,player==player2)) +
+      geom_point(aes(x = xax, y= DVORP,color = player3), data = filter(df,player==player3)) +
+      geom_line(aes(x = xax, y= DVORP, color = player3),data = filter(df,player==player3)) +
+      labs(x='Years made the Playoffs',y='Post VORP - Regular VORP')+
+      scale_color_manual(name='Players',values = c('#0072B2','#D55E00','#CC79A7'),labels=c(player1,player2,player3))+
+      scale_x_continuous(breaks = seq(1, 10, by = 1))+
+      ylim(-10,10)
+  }
+  else{
+    temp1 <- filter(team1,player==player1)
+    temp2 <- filter(team2,player==player2)
+    temp3 <- filter(team3,player==player3)
+    temp4 <- filter(team4,player==player4)
+    temp1$xax <- seq_along(temp1[, 1])
+    temp2$xax <- seq_along(temp2[, 1])
+    temp3$xax <- seq_along(temp3[,1])
+    temp4$xax <- seq_along(temp4[,1])
+    
+    df <- data.frame()
+    df <- rbind(df,temp1,temp2,temp3,temp4)
+    ggplot(df)+
+      geom_point(aes(x = xax, y= DVORP,color = player1), data = filter(df,player==player1)) +
+      geom_point(aes(x = xax, y= DVORP, color = player2),data = filter(df,player==player2)) +
+      geom_line(aes(x = xax, y= DVORP,color = player1), data = filter(df,player==player1)) +
+      geom_line(aes(x = xax, y= DVORP, color = player2),data = filter(df,player==player2)) +
+      geom_point(aes(x = xax, y= DVORP,color = player3), data = filter(df,player==player3)) +
+      geom_line(aes(x = xax, y= DVORP, color = player3),data = filter(df,player==player3)) +
+      geom_point(aes(x = xax, y= DVORP,color = player4), data = filter(df,player==player4)) +
+      geom_line(aes(x = xax, y= DVORP, color = player4),data = filter(df,player==player4)) +
+      labs(x='Years made the Playoffs',y='Post VORP - Regular VORP')+
+      scale_color_manual(name='Players',values = c('#0072B2','#D55E00','#CC79A7','#009E73'),labels=c(player4,player1,player3,player4))+
+      scale_x_continuous(breaks = seq(1, 10, by = 1))+
+      ylim(-10,10)
+  }
+}
+
 
 
 # If I have time, I will also make sense of all of the weird strings used for players.
 # Lastly, I will create plots of all of the important players from every team in
 # each decade.
+
 
 ############################
 ### Creating My Analyses ###
@@ -210,15 +325,33 @@ player('irvinky01',caveliers)
 player('abdulka01',lakers)
 player('johnsma02',lakers)
 
+player('duncati01',spurs)
+
 player('bryanko01',lakers)
 player('onealsh01',lakers)
 
 player('jamesle01',heat)
 player('wadedw01',heat)
 
+player('kerrst01',bulls)
+
 player('birdla01',celtics)
+player('thomais01',pistons)
 
 
 
+reg('curryst01','malonka01',warriors,jazz)
+reg('duncati01','thompkl01',spurs,warriors)
+reg('curryst01','malonka01',warriors,jazz,'thompkl01',warriors)
+reg('curryst01','malonka01',warriors,jazz,'thompkl01',warriors,'bryanko01',lakers)
 
+
+post('curryst01','malonka01',warriors,jazz)
+post('curryst01','malonka01',warriors,jazz,'thompkl01',warriors)
+post('curryst01','malonka01',warriors,jazz,'thompkl01',warriors,'bryanko01',lakers)
+
+
+diff('curryst01','malonka01',warriors,jazz)
+diff('curryst01','malonka01',warriors,jazz,'thompkl01',warriors)
+diff('curryst01','malonka01',warriors,jazz,'jordami01',bulls,'bryanko01',lakers)
 
