@@ -7,22 +7,51 @@ library(ggplot2)
 
 ### Setting the directory of the data ####
 
-setwd('/Users/matty/Documents/BYU/undergrad_research/merging')
+setwd('/Users/matty/Documents/BYU/undergrad_research/john')
 
 ### Loading in the data ###
 
-bulls <- read.csv('bulls.csv')
-celtics <- read.csv('celtics.csv')
-jazz <- read.csv('jazz.csv')
-rockets <- read.csv('rockets.csv')
-warriors <- read.csv('warriors.csv')
-caveliers <- read.csv('caveliers.csv')
-heat <- read.csv('heat.csv')
-lakers <- read.csv('lakers.csv')
-pistons <- read.csv('pistons.csv')
-spurs <- read.csv('spurs.csv')
-playoffers <- read.csv('playoffers.csv')
-regulars <- read.csv('regulars.csv')
+curry <- read.csv('curry_t.csv')
+kobe <- read.csv('kobe_t.csv')
+lebron <- read.csv('lebron_t.csv')
+malone <- read.csv('malone_t.csv')
+michael <- read.csv('michael_t.csv')
+pippin <- read.csv('pippin_t.csv')
+stock <- read.csv('stock_t.csv')
+
+curry_reg <- read.csv('curry_reg.csv')
+curry_post <- read.csv('curry_post.csv')
+kobe_reg <- read.csv('kobe_reg.csv')
+kobe_post <- read.csv('kobe_post.csv')
+lebron_reg <- read.csv('lebron_reg.csv')
+lebron_post <- read.csv('lebron_post.csv')
+malone_reg <- read.csv('malone_reg.csv')
+malone_post <- read.csv('malone_post.csv')
+michael_reg <- read.csv('michael_reg.csv')
+michael_post <- read.csv('michael_post.csv')
+pippin_reg <- read.csv('pippin_reg.csv')
+pippin_post <- read.csv('pippin_post.csv')
+stock_reg <- read.csv('stock_reg.csv')
+stock_post <- read.csv('stock_post.csv')
+
+
+### Cleaning the Data ###
+
+curry_reg <- curry_reg$x
+curry_post <- curry_post$x
+kobe_reg <- kobe_reg$x
+kobe_post <- kobe_post$x
+lebron_reg <- lebron_reg$x
+lebron_post <- lebron_post$x
+malone_reg <- malone_reg$x
+malone_post <- malone_post$x
+michael_reg <- michael_reg$x
+michael_post <- michael_post$x
+pippin_reg <- pippin_reg$x
+pippin_post <- pippin_post$x
+stock_reg <- stock_reg$x
+stock_post <- stock_post$x
+
 
 ### Setting directory of the file ###
 
@@ -33,45 +62,24 @@ setwd('/Users/matty/Documents/BYU/undergrad_research/stats')
 ### Creating my analysis ###
 ############################
 
+t.test(VORP ~ time, curry)
+t.test(VORP ~ time, kobe)
+t.test(VORP ~ time, lebron)
+t.test(VORP ~ time, malone)
+t.test(VORP ~ time, michael)
+t.test(VORP ~ time, pippin)
+t.test(VORP ~ time, stock)
 
-mean(filter(bulls,year==1998)$PVORP)
-mean(filter(jazz,year==1998)$PVORP)
+ 
 
-sum(filter(bulls,year==1998)$PVORP)
-sum(filter(jazz,year==1998)$PVORP)
+dens_reg <- density(lebron_reg)
+plot(dens_reg, xlab = expression('Game VORP - Team Mean Regular Season Adjusted VORP'), ylab = 'Density', main = '', ylim = c(0,0.09))
 
-mean(filter(spurs,year==2014)$PVORP)
-mean(filter(heat,year==2014)$PVORP)
-
-sum(filter(spurs,year==2009)$PVORP)
-sum(filter(lakers,year==2009)$PVORP)
-
-mean(filter(spurs,year==2009)$PVORP)
-mean(filter(lakers,year==2009)$PVORP)
-
-hist(filter(lakers,year==2009)$PVORP)
-hist(filter(spurs,year==2009)$PVORP)
+dens_post <- density(lebron_post)
+lines(dens_post, col = 'red')
+legend('topright', legend = c('reg', 'post'), col = c('black', 'red'), lty = 1)
 
 
-plot(density(bulls$PVORP), xlab=expression(PVORP), ylab="density", main= 'testing')
-lines(plot(density(jazz$PVORP)), add = T)
-
-plot(density(bulls$PVORP), xlab=expression(PVORP), ylab="density", main="Multiple Density Plots", ylim = c(0,0.35))
-lines(density(jazz$PVORP), col = "purple")
-lines(density(celtics$PVORP), col = "green")
-lines(density(lakers$PVORP), col = "orange")
-lines(density(warriors$PVORP), col = 'blue')
-lines(density(pistons$PVORP), col = 'red')
-
-
-
-
-
-
-
-
-
-#> Run a linear regression for every player and create a histogram of the coefficients
 
 
 

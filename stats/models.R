@@ -35,13 +35,16 @@ setwd('/Users/matty/Documents/BYU/undergrad_research/stats')
 
 ### This function plots a scatter-plot and line ###
 
-scatt <- function(data,years=NULL){
+scatt <- function(data,years=NULL, mine = NULL){
+  if(is.null(mine) == TRUE){
+    mine <- 'Team Performance'
+  }
   if(is.null(years) == TRUE){
     ggplot(data)+
       geom_point(aes(x=RVORP,y=PVORP,color=win)) +
       scale_color_manual(name='Champions',values = c('black','firebrick3'),labels=c('No','Yes')) +
       geom_abline(intercept = 0,slope=1, color='blue')+ 
-      labs(title='Team Performance',x = 'Regular Season VORP',y='Post Season VORP',subtitle = 'Performance with y=x line')+
+      labs(title=mine,x = 'Regular Season Adjusted VORP',y='Post Season Adjusted VORP',subtitle = 'Performance with y=x line')+
       xlim(-5,15)+
       ylim(-5,15)
   }
@@ -68,7 +71,7 @@ scatt <- function(data,years=NULL){
 
 ### This function will plot a player over years ###
 
-player <- function(play, team){
+player <- function(play, team, titles = "Player Performance"){
   temp <- filter(team, player == play)
   minyear <- min(temp$year)
   ggplot(temp) +
@@ -76,7 +79,7 @@ player <- function(play, team){
     geom_point(aes(x = year, y= PVORP,color = 'Post Season')) +
     geom_line(aes(x = year,y=RVORP,color = 'Regular Season')) +
     geom_line(aes(x = year,y=PVORP,color = 'Post Season')) +
-    labs(title='Player Performance',x = 'Year',y='VORP',subtitle = 'Regular Season VORP vs Post Season VORP')+
+    labs(title=titles,x = 'Year',y='Time Adjusted VORP',subtitle = 'Regular Season Adjusted VORP vs Post Season Adjusted VORP')+
     scale_color_manual(name='Time',values = c('#0072B2','#D55E00'))+
     scale_x_continuous(breaks = seq(min(temp$year), max(temp$year), by = 1))+
     ylim(-5,15)
@@ -157,7 +160,11 @@ reg <- function(player1,player2,team1,team2,player3=NULL,team3=NULL,player4=NULL
 
 ### This will compare player's post season through the years ###
 
-post <- function(player1,player2,team1,team2,player3=NULL,team3=NULL,player4=NULL,team4=NULL){
+post <- function(player1,player2,team1,team2,player3=NULL,team3=NULL,player4=NULL,team4=NULL,mine = NULL, mine2 = NULL){
+  if(is.null(mine) == TRUE){
+    mine <- player1
+    mine2 <- player2
+  }
   if(is.null(player3) == TRUE){
     temp1 <- filter(team1,player==player1)
     temp2 <- filter(team2,player==player2)
@@ -171,8 +178,8 @@ post <- function(player1,player2,team1,team2,player3=NULL,team3=NULL,player4=NUL
       geom_point(aes(x = xax, y= PVORP, color = player2),data = filter(df,player==player2)) +
       geom_line(aes(x = xax, y= PVORP,color = player1), data = filter(df,player==player1)) +
       geom_line(aes(x = xax, y= PVORP, color = player2),data = filter(df,player==player2)) +
-      labs(x='Years made the Playoffs',y='Regular Season VORP')+
-      scale_color_manual(name='Players',values = c('#0072B2','#D55E00'),labels=c(player1,player2))+
+      labs(x='Years made the Playoffs',y='Post Season Adjusted VORP')+
+      scale_color_manual(name='Players',values = c('#0072B2','#D55E00'),labels=c(mine,mine2))+
       scale_x_continuous(breaks = seq(1, 10, by = 1))+
       ylim(-5,15)
   }
@@ -219,7 +226,7 @@ post <- function(player1,player2,team1,team2,player3=NULL,team3=NULL,player4=NUL
       geom_line(aes(x = xax, y= PVORP, color = player3),data = filter(df,player==player3)) +
       geom_point(aes(x = xax, y= PVORP,color = player4), data = filter(df,player==player4)) +
       geom_line(aes(x = xax, y= PVORP, color = player4),data = filter(df,player==player4)) +
-      labs(x='Years made the Playoffs',y='Regular Season VORP')+
+      labs(x='Years made the Playoffs',y='Post Season VORP')+
       scale_color_manual(name='Players',values = c('#0072B2','#D55E00','#CC79A7','#009E73'),labels=c(player4,player1,player2,player3))+
       scale_x_continuous(breaks = seq(1, 10, by = 1))+
       ylim(-5,15)
@@ -310,27 +317,29 @@ diff <- function(player1,player2,team1,team2,player3=NULL,team3=NULL,player4=NUL
 ### Creating My Analyses ###
 ############################
 
-player('stockjo01',jazz)
-player('malonka01',jazz)
+player('stockjo01',jazz, 'Karl Malone')
+player('malonka01',jazz, 'John Stockton')
 
-player('curryst01',warriors)
+player('curryst01',warriors, 'Stephen Curry')
 player('thompkl01',warriors)
 
-player('jordami01',bulls)
-player('pippesc01',bulls)
+player('jordami01',bulls,'Micahel Jordan')
+player('pippesc01',bulls, 'Scottie Pippin')
 
-player('jamesle01',caveliers)
+caveliers$temp <- caveliers$year > 2011
+temp <- filter(caveliers, temp == T)
+player('jamesle01',temp, 'Cleveland Caveliers')
 player('irvinky01',caveliers)
 
 player('abdulka01',lakers)
 player('johnsma02',lakers)
 
-player('duncati01',spurs)
+player('duncati01',spurs, 'Tim Duncan')
 
-player('bryanko01',lakers)
+player('bryanko01',lakers, 'Kobe Bryant')
 player('onealsh01',lakers)
 
-player('jamesle01',heat)
+player('jamesle01',heat, "Miami Heat")
 player('wadedw01',heat)
 
 player('kerrst01',bulls)
@@ -346,7 +355,8 @@ reg('curryst01','malonka01',warriors,jazz,'thompkl01',warriors)
 reg('curryst01','malonka01',warriors,jazz,'thompkl01',warriors,'bryanko01',lakers)
 
 
-post('curryst01','malonka01',warriors,jazz)
+post('jordami01','malonka01',bulls,jazz, mine = 'Michael Jordan',mine2 = 'Karl Malone')
+post('pippesc01','stockjo01',bulls,jazz, mine = 'Scottie Pippin', mine2 = 'John Stockton')
 post('curryst01','malonka01',warriors,jazz,'thompkl01',warriors)
 post('curryst01','malonka01',warriors,jazz,'thompkl01',warriors,'bryanko01',lakers)
 
