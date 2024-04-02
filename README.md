@@ -5,6 +5,7 @@ This is an explanation of the different folders found in this repository.
 
 
 John: This is where I put the data for specific players and the files to accomplish the graphs and cleaning.
+\b
 Linear: This is where I tried doing some linear regression. We went a different route.
 Mergerging: This is merging the data files.
 Old_data: This is where the old data that I was using is placed.
