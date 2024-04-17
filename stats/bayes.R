@@ -72,10 +72,10 @@ t.test(VORP ~ time, stock)
 
  
 
-dens_reg <- density(lebron_reg)
+dens_reg <- density(michael_reg)
 plot(dens_reg, xlab = expression('Game VORP - Team Mean Regular Season Adjusted VORP'), ylab = 'Density', main = '', ylim = c(0,0.09))
 
-dens_post <- density(lebron_post)
+dens_post <- density(michael_post)
 lines(dens_post, col = 'red')
 legend('topright', legend = c('reg', 'post'), col = c('black', 'red'), lty = 1)
 
